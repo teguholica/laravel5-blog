@@ -2,7 +2,6 @@
 
 Contoh blog dengan laravel 5
 
-INSTALASI
-===========
+## INSTALASI
 - Copy file ".env.example" dan ganti menjadi ".env"
 - Ganti database dengan database yang anda gunakan
