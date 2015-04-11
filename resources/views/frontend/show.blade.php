@@ -82,7 +82,7 @@ Posting tidak ditemukan  | TeguhDev
 	
 	</h5>
 	<p>
-		{{ $post->content }}
+		{!! $post->content !!}
 	</p>
 
 	<hr>
@@ -91,6 +91,7 @@ Posting tidak ditemukan  | TeguhDev
 		<h3>Komentar</h3>
 
 		<form action="{{ route('blog.store_comment', $post->id) }}" method="POST">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		    <div class="form-group">
 		        <input name="name" class="form-control" placeholder="Your Name">
 		    </div>

@@ -1,5 +1,8 @@
-<?php
-class CommentModel extends Eloquent {
+<?php namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class CommentModel extends Model {
 	
 	protected $guarded = array();
 	protected $table = 'comments';

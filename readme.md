@@ -1,5 +1,5 @@
 ## Laravel 5 : Blog
-Contoh blog dengan laravel 5.0.16
+Contoh blog dengan laravel 5
 ## Instalasi
 - Buat database terlebih dahulu
 - Copy file ".env.example" dan ganti menjadi ".env"

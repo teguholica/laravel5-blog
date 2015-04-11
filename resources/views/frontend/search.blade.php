@@ -77,7 +77,7 @@ Search| TeguhDEV
 	</h5>
 	<p>
 		@if($post->preview_content == "")
-		{{ $post->lazy_content }}
+		{!! $post->lazy_content !!}
 		@else
 		{{ $post->preview_content }}...<a href="{{ route('blog.show', $post->slug) }}">Selengkapnya</a>
 		@endif
@@ -90,7 +90,7 @@ Search| TeguhDEV
 @endforelse
 
 <div style="text-align: center">
-	{{ $posts->links() }}
+	{{ $posts->render() }}
 </div>
 
 @stop

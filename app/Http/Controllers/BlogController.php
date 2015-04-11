@@ -3,7 +3,10 @@
 use App\Models\PostModel;
 use App\Models\CategoryModel;
 use App\Models\TagModel;
+use App\Models\CommentModel;
 use SocialLinks\Page;
+use Validator;
+use Input;
 
 class BlogController extends FrontendController {
 
@@ -36,7 +39,21 @@ class BlogController extends FrontendController {
 		$data['comments'] = PostModel::where('slug', $slug)->first()->comment;
 		$data['post'] = PostModel::where('is_publish', 1)->where('slug', $slug)->first();
 		if(count($data['post']) > 0){
-			$data['post']->share = (object)Share::load(route('blog.show', $data['post']->slug), $data['post']->title)->services('facebook', 'gplus', 'twitter', 'gmail');
+			$page = new Page([
+			    'url' => route('blog.show', $data['post']->slug),
+			    'title' => $data['post']->title,
+			    'text' => $data['post']->title,
+			    'image' => '',
+			    'twitterUser' => '@teguholica'
+			]);
+
+			$link = '<a href="%s">%s (%s)</a>';
+
+			$data['post']->share = (Object)[
+				'gplus' => $page->plus->shareUrl,
+				'facebook' => $page->facebook->shareUrl,
+				'twitter' => $page->twitter->shareUrl
+			];
 		}
 		return $this->loadView('show', $data);
 	}
@@ -44,8 +61,21 @@ class BlogController extends FrontendController {
 	public function category($categorySlug){
 		$data['posts'] = CategoryModel::where('slug', $categorySlug)->first()->post()->orderBy('created_at','DESC')->paginate(5);
 		foreach($data['posts'] as $post){
-			$post->share = (object)Share::load(route('blog.show', $post->slug), $post->title)->services('facebook', 'gplus', 'twitter', 'gmail');
-		}
+			$page = new Page([
+			    'url' => route('blog.show', $post->slug),
+			    'title' => $post->title,
+			    'text' => $post->title,
+			    'image' => '',
+			    'twitterUser' => '@teguholica'
+			]);
+
+			$link = '<a href="%s">%s (%s)</a>';
+
+			$post->share = (Object)[
+				'gplus' => $page->plus->shareUrl,
+				'facebook' => $page->facebook->shareUrl,
+				'twitter' => $page->twitter->shareUrl
+			];		}
 		return $this->loadView('category', $data);
 	}
 	
@@ -56,7 +86,21 @@ class BlogController extends FrontendController {
 			->orderBy('updated_at','DESC')
 			->paginate(5);
 		foreach($data['posts'] as $post){
-			$post->share = (object)Share::load(route('blog.show', $post->slug), $post->title)->services('facebook', 'gplus', 'twitter', 'gmail');
+			$page = new Page([
+			    'url' => route('blog.show', $post->slug),
+			    'title' => $post->title,
+			    'text' => $post->title,
+			    'image' => '',
+			    'twitterUser' => '@teguholica'
+			]);
+
+			$link = '<a href="%s">%s (%s)</a>';
+
+			$post->share = (Object)[
+				'gplus' => $page->plus->shareUrl,
+				'facebook' => $page->facebook->shareUrl,
+				'twitter' => $page->twitter->shareUrl
+			];
 		}
 		return $this->loadView('tag', $data);
 	}
@@ -68,7 +112,21 @@ class BlogController extends FrontendController {
 			->orderBy('updated_at','DESC')
 			->paginate(10);
 		foreach($data['posts'] as $post){
-			$post->share = (object)Share::load(route('blog.show', $post->slug), $post->title)->services('facebook', 'gplus', 'twitter', 'gmail');
+			$page = new Page([
+			    'url' => route('blog.show', $post->slug),
+			    'title' => $post->title,
+			    'text' => $post->title,
+			    'image' => '',
+			    'twitterUser' => '@teguholica'
+			]);
+
+			$link = '<a href="%s">%s (%s)</a>';
+
+			$post->share = (Object)[
+				'gplus' => $page->plus->shareUrl,
+				'facebook' => $page->facebook->shareUrl,
+				'twitter' => $page->twitter->shareUrl
+			];
 		}
 		return $this->loadView('search', $data);
 	}
@@ -80,9 +138,9 @@ class BlogController extends FrontendController {
 		$validation = Validator::make($input, $rules);
 		if ($validation -> passes()) {
 			$comment = PostModel::find($postId)->comment()->create($input);
-			return Redirect::route('blog.show', $comment->post->slug);
+			return redirect()->route('blog.show', $comment->post->slug);
 		}else{
-			return Redirect::route('blog.show', $comment->post->slug);
+			return redirect()->route('blog.show', $comment->post->slug);
 		}
 	}
 
