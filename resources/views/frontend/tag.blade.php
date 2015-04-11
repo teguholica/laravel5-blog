@@ -89,7 +89,7 @@
 @endforelse
 
 <div style="text-align: center">
-	{{ $posts->links() }}
+	{{ $posts->render() }}
 </div>
 
 @stop

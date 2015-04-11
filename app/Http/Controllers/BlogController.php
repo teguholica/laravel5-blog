@@ -2,6 +2,7 @@
 
 use App\Models\PostModel;
 use App\Models\CategoryModel;
+use App\Models\TagModel;
 use SocialLinks\Page;
 
 class BlogController extends FrontendController {
