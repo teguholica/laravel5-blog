@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\WebSettingModel;
+use Input;
 
 class WebSettingController extends Controller {
 
@@ -37,7 +38,7 @@ class WebSettingController extends Controller {
 		$webSettingModel->value = Input::get('meta_description');
 		$webSettingModel->save();
 
-		return Redirect::route('admin.web_setting.index')->with('success_msg', 'Your setting has been saved');
+		return redirect()->route('admin.web_setting.index')->with('success_msg', 'Your setting has been saved');
 	}
 
 }
