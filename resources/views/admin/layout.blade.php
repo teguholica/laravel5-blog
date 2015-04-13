@@ -50,7 +50,7 @@
 			<div class="row">
 				<div class="col-md-2" style="border-right: 1px solid #EEE;">
 					<ul class="nav nav-pills nav-stacked">
-						<li {{ Request::is('*admin')?'class="active"':'' }}>
+						<li {{ Request::is('*admin')?'class=active':'' }}>
 							<a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
 						</li>
 						<li>
@@ -68,22 +68,22 @@
 					</ul>
 					<hr>
 					<ul class="nav nav-pills nav-stacked" style="margin-top: 10px;">
-						<li {{ Request::is('*admin/post*')?'class="active"':'' }}>
+						<li {{ Request::is('*admin/post*')?'class=active':'' }}>
 							<a href="{{ route('admin.post.index') }}">Post</a>
 						</li>
-						<li {{ Request::is('*admin/tag*')?'class="active"':'' }}>
+						<li {{ Request::is('*admin/tag*')?'class=active':'' }}>
 							<a href="{{ route('admin.tag.index') }}">Tag</a>
 						</li>
-						<li {{ Request::is('*admin/category*')?'class="active"':'' }}>
+						<li {{ Request::is('*admin/category*')?'class=active':'' }}>
 							<a href="{{ route('admin.category.index') }}">Category</a>
 						</li>
 					</ul>
 					<hr>
 					<ul class="nav nav-pills nav-stacked" style="margin-top: 10px;">
-						<li {{ Request::is('*admin/gcm_device*')?'class="active"':'' }}>
+						<li {{ Request::is('*admin/gcm_device*')?'class=active':'' }}>
 							<a href="{{ route('admin.gcm_device.index') }}">GCM Device</a>
 						</li>
-						<li {{ Request::is('*admin/web_setting*')?'class="active"':'' }}>
+						<li {{ Request::is('*admin/web_setting*')?'class=active':'' }}>
 							<a href="{{ route('admin.web_setting.index') }}">Web Setting</a>
 						</li>
 					</ul>
