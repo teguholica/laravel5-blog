@@ -10,8 +10,8 @@ Edit Post - {{ $post->title }}
 @stop
 
 @section('head')
-<link href="{{ asset('res/summernote/dist/summernote.css') }}" rel="stylesheet" />
-<link href="{{ asset('res/summernote/dist/summernote-bs3.css') }}" rel="stylesheet" />
+<link href="{{ asset('res/summernote-0.6.3/summernote.css') }}" rel="stylesheet" />
+<link href="{{ asset('res/summernote-0.6.3/summernote-bs3.css') }}" rel="stylesheet" />
 <style>
 	pre {
 		background-color: #1B2426 !important;
@@ -136,7 +136,7 @@ Edit Post - {{ $post->title }}
 @stop
 
 @section('foot')
-<script type="text/javascript" src="{{ asset('res/summernote/dist/summernote.js') }}"></script>
+<script type="text/javascript" src="{{ asset('res/summernote-0.6.3/summernote.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('res/jquery-slugify/jquery.slugify.js') }}"></script>
 <script>
 	var postForm = function() {

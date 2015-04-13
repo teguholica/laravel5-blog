@@ -5,8 +5,8 @@
 		<meta name="author" content="Teguh Arifianto">
 		@yield('meta')
 		<title>@yield('webTitle', 'teguholica | Cuma orang yang suka koding')</title>
-		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.1/css/bootstrap.min.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.1/css/bootstrap-theme.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.4/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.4/css/bootstrap-theme.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/frontend/blog-home.css') }}">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 		<style>
@@ -198,7 +198,7 @@
 		<!-- /.container -->
 		<!-- JavaScript -->
 		<script type="text/javascript" src="{{ asset('res/jquery-2.1.3/jquery.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('res/bootstrap-3.3.1/js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/bootstrap-3.3.4/js/bootstrap.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/tagclouds/js/tinysort.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/jquery.lazy/jquery.lazy.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/holderjs-2.4.1/holder.js') }}"></script>

@@ -5,8 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> @yield('webTitle', 'No Title') </title>
-		<link href="{{ asset('res/bootstrap-3.2.0/css/bootstrap.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('res/bootstrap-3.2.0/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('res/bootstrap-3.3.4/css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('res/bootstrap-3.3.4/css/bootstrap-theme.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('res/font-awesome-4.1.0/css/font-awesome.min.css') }}" rel="stylesheet" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 		<style>
@@ -99,7 +99,7 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="{{ asset('res/jquery-1.11.1/jquery.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('res/bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/bootstrap-3.3.4/js/bootstrap.min.js') }}"></script>
 		@yield('foot')
 	</body>
 </html>
