@@ -171,7 +171,7 @@ class PostController extends Controller {
 		$validation = Validator::make(Input::all(), $rules);
 
 		if ($validation->passes()){
-			$input = Input::except('enable_preview_content', 'tags');
+			$input = Input::except('enable_preview_content', 'tags', 'isSaveToPost');
 			$input['user_id'] = Auth::user()->id;
 			
 			if(!Input::has('enable_preview_content')){
