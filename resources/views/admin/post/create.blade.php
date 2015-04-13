@@ -22,8 +22,9 @@ Create New Post
 @stop
 
 @section('main')
-<form role="form" action="{{ route('admin.post.store') }}" method="post" onsubmit="return postForm()">
+<form id="postForm" role="form" action="{{ route('admin.post.store') }}" method="post" onsubmit="return postForm()">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<input type="hidden" name="isSaveToPost" value="false">
 	<div class="row">
 		<div class="col-md-9">
 			@include('admin.alert')
@@ -124,10 +125,29 @@ Create New Post
 			</div>
 			<hr>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" style="width: 100%;" data-toggle="dropdown" aria-expanded="true">
+								Save
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="savePost()">Save</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="exportPost()">Save to .post</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn btn-primary" style="width: 100%;" onclick="importPost()">Load .post</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</form>
+<form id="loadPostForm" style="display:none;">
+	<input type="file">
 </form>
 <hr>
 @stop
@@ -159,5 +179,30 @@ Create New Post
 			$("#preview_content_wrapper").hide();
 		}
 	}
+
+	savePost = function(){
+		$('[name=isSaveToPost]').val("false");
+		$('#postForm').submit();
+	}
+
+	exportPost = function(){
+		$('[name=isSaveToPost]').val("true");
+		$('#postForm').submit();
+	}
+
+	importPost = function(){
+		$('#loadPostForm input').trigger('click');
+	}
+
+	$('#loadPostForm input').change(function(){
+		myFile = $(this).prop('files');
+		var reader = new FileReader();
+        reader.readAsText(myFile[0]);
+        reader.onload = function(e) {
+        	importData = jQuery.parseJSON(e.target.result);
+        	$('#postForm [name=title]').val(importData.title);
+        	$('#post_content').code(importData.content);
+        };
+	});
 </script>
 @stop
