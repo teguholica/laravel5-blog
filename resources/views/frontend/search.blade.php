@@ -58,8 +58,9 @@ Search| TeguhDEV
 	<h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>
 	<h5>
 		<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->fullname }}</a>&nbsp;&nbsp; 
-		<span class="glyphicon glyphicon-time"></span> Terbit {{ date("F d, Y",strtotime($post->created_at)) }}&nbsp;&nbsp;
-		<span class="glyphicon glyphicon-time"></span> Revisi {{ date("F d, Y",strtotime($post->updated_at)) }}
+		<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
+		@if($post->updated_at == $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
+		<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
 		
 		<div class="pull-right">			
 			<div class="btn-group">

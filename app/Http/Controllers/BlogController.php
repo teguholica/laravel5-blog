@@ -38,7 +38,11 @@ class BlogController extends FrontendController {
 	public function show($slug){
 		$data['comments'] = PostModel::where('slug', $slug)->first()->comment;
 		$data['post'] = PostModel::where('is_publish', 1)->where('slug', $slug)->first();
+
 		if(count($data['post']) > 0){
+			$data['post']->view = $data['post']->view + 1;
+			$data['post']->save();
+
 			$page = new Page([
 			    'url' => route('blog.show', $data['post']->slug),
 			    'title' => $data['post']->title,

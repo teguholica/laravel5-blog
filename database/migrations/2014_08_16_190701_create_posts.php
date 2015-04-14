@@ -25,6 +25,7 @@ class CreatePosts extends Migration {
 			$table->tinyinteger('disable_comment')->default(0);
 			$table->tinyinteger('show_in_home')->default(0);
 			$table->integer('category_id');
+			$table->integer('view')->default(0);
 			$table->timestamps();
 		});
 	}

@@ -146,13 +146,13 @@
 						</li>
 						@if(Auth::check())
 						@foreach($categories->where('tag', 'header')->get() as $category)
-						<li {{ URL::current() == route('blog.category', $category->slug)?'class="active"':'' }}>
+						<li {{ URL::current() == route('blog.category', $category->slug)?'class=active':'' }}>
 							<a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a>
 						</li>
 						@endforeach
 						@else
 						@foreach($categories->where('tag', 'header')->get() as $category)
-						<li {{ URL::current() == route('blog.category', $category->slug)?'class="active"':'' }}>
+						<li {{ URL::current() == route('blog.category', $category->slug)?'class=active':'' }}>
 							<a href="{{ route('blog.category', $category->slug) }}">{{ $category->name }}</a>
 						</li>
 						@endforeach
