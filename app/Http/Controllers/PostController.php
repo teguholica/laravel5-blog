@@ -122,6 +122,10 @@ class PostController extends Controller {
 			$html->save();
 			$input["lazy_content"] = $html;
 			
+			if(!Input::has("is_publish")){
+				$input["is_publish"] = "0";
+			}
+			
 			try {
 				$post = PostModel::find($id)->update($input);
 			} catch (Exception $e) {
