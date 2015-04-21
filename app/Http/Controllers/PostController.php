@@ -106,22 +106,45 @@ class PostController extends Controller {
 			if(!Input::has('enable_preview_content')){
 				$input['preview_content'] = "";
 			}
+
+			//Destroy old image for this content
+			$post = PostModel::find($id);
+			$imageList = json_decode($post->images);
+			foreach($imageList as $image){
+				$imageFile = public_path('images/generate/'.$image);
+				if(file_exists($imageFile)){
+					unlink($imageFile);
+				}
+			}
 			
 			$html = HtmlDomParser::str_get_html(Input::get('content'));
+			$imageList = [];
 			foreach($html->find('img') as $key => $element){
+				//Get real base64 format
 				$imageEncode = preg_replace('#^data:image/[^;]+;base64,#', '', $element->src);
-				$imageDecode = base64_decode($imageEncode);
+
+				//Get height, width, and extension
+				$imageInfo = Image::getImageInfoFromBase64($imageEncode);
+
+				//Generate image filename and save to images folder
+				$filename = date('YmdHis').'_'.$key.$imageInfo->ext;
+				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.$filename));
 				
-				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.date('YmdHis').$key));
-				$imageSize = getimagesizefromstring($imageDecode);
-				
+				//Modify content img to use lazy imageloader
 				$element->class = 'lazy';
 				$element->{"data-src"} = asset('images/generate/'.$file);
-				$element->src = route('image_placeholder.load', array('h' => $imageSize[1], 'w' => $imageSize[0], 't' => 'Loading...'));
+				$element->src = route('image_placeholder.load', array('h' => $imageInfo->height, 'w' => $imageInfo->width, 't' => 'Loading...'));
+
+				//Save image to imageList array
+				$imageList[] = $filename;
 			}
 			$html->save();
 			$input["lazy_content"] = $html;
+
+			//Store imageList to input variable with JSON format
+			$input['images'] = json_encode($imageList);
 			
+			//Check if is_publish flag doesn't exist or unchecked, set to "0" or unpublish
 			if(!Input::has("is_publish")){
 				$input["is_publish"] = "0";
 			}
@@ -183,16 +206,21 @@ class PostController extends Controller {
 			}
 			
 			$html = HtmlDomParser::str_get_html(Input::get('content'));
+			$imageList = [];
 			foreach($html->find('img') as $key => $element){
 				$imageEncode = preg_replace('#^data:image/[^;]+;base64,#', '', $element->src);
 				$imageDecode = base64_decode($imageEncode);
 				
-				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.date('YmdHis').$key));
+				$filename = date('YmdHis').$key;
+				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.$filename));
 				$imageSize = getimagesizefromstring($imageDecode);
 				
 				$element->class = 'lazy';
 				$element->{"data-src"} = asset('images/generate/'.$file);
 				$element->src = route('image_placeholder.load', array('h' => $imageSize[1], 'w' => $imageSize[0], 't' => 'Loading...'));
+
+				//Save image to imageList array
+				$imageList[] = $filename;
 			}
 			$html->save();
 			$input["lazy_content"] = $html;

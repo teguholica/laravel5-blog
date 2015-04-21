@@ -2,6 +2,22 @@
 
 class Image {
 
+	public static function getImageInfoFromBase64($base64Str){
+		$imageDecode = base64_decode($base64Str);
+		$imageInfo = getimagesizefromstring($imageDecode);
+
+		$result = new \stdClass;
+		$result->width = $imageInfo[0];
+		$result->height = $imageInfo[1];
+
+		$result->ext = '';
+		if($imageInfo['mime'] == 'image/png'){
+			$result->ext = '.png';
+		}
+		
+		return $result;
+	}
+
 	public static function placeholder($height, $width, $text) {
 		// Dimensions
 		//header ("Content-type: image/png");
