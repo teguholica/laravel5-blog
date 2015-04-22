@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Teguh Arifianto">
 		@yield('meta')
-		<title>@yield('webTitle', 'teguholica | Cuma orang yang suka koding')</title>
+		<title>@yield('webTitle', $webSettings->web_title)</title>
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.4/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.4/css/bootstrap-theme.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/frontend/blog-home.css') }}">

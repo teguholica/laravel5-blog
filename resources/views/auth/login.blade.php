@@ -9,7 +9,7 @@
 		<link rel="icon" href="../../favicon.ico">
 
 		<title>Login</title>
-		<link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+		<link href="{{ asset('res/bootstrap-3.3.4/css/bootstrap.min.css') }}" rel="stylesheet">
 		<style>
 			body {
 				background-color: #F1F1F1;
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" href="{{ asset('assets/jquery/jquery-1.10.2.js') }}"></script>
-		<script type="text/javascript" href="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/jquery-2.1.3/jquery.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/bootstrap-3.3.4/js/bootstrap.min.js') }}"></script>
 	</body>
 </html>
