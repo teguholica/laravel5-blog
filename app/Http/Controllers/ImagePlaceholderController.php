@@ -1,6 +1,9 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-class ImagePlaceholderController extends BaseController {
+use App\Libs\Image;
+use Input;
+
+class ImagePlaceholderController extends Controller {
 
 	public function loadView(){
 		return Image::placeholder(Input::get("h"), Input::get("w"), Input::get("t"));

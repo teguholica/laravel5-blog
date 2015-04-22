@@ -110,10 +110,12 @@ class PostController extends Controller {
 			//Destroy old image for this content
 			$post = PostModel::find($id);
 			$imageList = json_decode($post->images);
-			foreach($imageList as $image){
-				$imageFile = public_path('images/generate/'.$image);
-				if(file_exists($imageFile)){
-					unlink($imageFile);
+			if(!empty($imageList)){
+				foreach($imageList as $image){
+					$imageFile = public_path('images/generate/'.$image);
+					if(file_exists($imageFile)){
+						unlink($imageFile);
+					}
 				}
 			}
 			
@@ -130,10 +132,24 @@ class PostController extends Controller {
 				$filename = date('YmdHis').'_'.$key.$imageInfo->ext;
 				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.$filename));
 				
+				//Parse image css to get height and width
+				$imageStyle = array();
+				preg_match_all("/([\w-]+)\s*:\s*([^;]+)\s*;?/", $element->style, $matches, PREG_SET_ORDER);
+				foreach ($matches as $match) {
+					$imageStyle[$match[1]] = $match[2];
+				}
+
+				//Calculate new image size
+				$imageWidth = $imageStyle['width']/100*$imageInfo->width;
+				$imageHeight = $imageStyle['width']/100*$imageInfo->height;
+
 				//Modify content img to use lazy imageloader
 				$element->class = 'lazy';
-				$element->{"data-src"} = asset('images/generate/'.$file);
-				$element->src = route('image_placeholder.load', array('h' => $imageInfo->height, 'w' => $imageInfo->width, 't' => 'Loading...'));
+				$element->width = $imageWidth;
+				$element->height = $imageHeight;
+				$element->href = asset('images/generate/'.$file);
+				$element->{"data-original"} = asset('images/generate/'.$file);
+				$element->src = null;
 
 				//Save image to imageList array
 				$imageList[] = $filename;

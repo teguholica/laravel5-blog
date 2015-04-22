@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/bootstrap-3.3.4/css/bootstrap-theme.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('res/frontend/blog-home.css') }}">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="{{ asset('res/magnific-popup/dist/magnific-popup.css') }}">
 		<style>
 			body {
 				margin: 0px;
@@ -116,6 +117,10 @@
 			    color: white;
 			}
 
+			img.lazy {
+				cursor:zoom-in !important;
+			}
+
 		</style>
 		@yield('head')
 	</head>
@@ -200,18 +205,30 @@
 		<script type="text/javascript" src="{{ asset('res/jquery-2.1.3/jquery.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/bootstrap-3.3.4/js/bootstrap.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/tagclouds/js/tinysort.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('res/jquery.lazy/jquery.lazy.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('res/holderjs-2.4.1/holder.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/jquery_lazyload/jquery.lazyload.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
 		<script>
 			$(window).load(function(){
 				$("#main-content").show();
 			});
 			$(document).ready(function() {
-				$("#main-content").hide();				
-				jQuery("img.lazy").lazy({
+				$("#main-content").hide();		
+				$("img.lazy").lazyload({
+					effect : "fadeIn"
+				});
+				$('img.lazy').magnificPopup({
+					type:'image',
+					closeBtnInside: false,
+					zoom: {
+					    enabled: true, // By default it's false, so don't forget to enable it
+					    duration: 300, // duration of the effect, in milliseconds
+					    easing: 'ease-in-out', // CSS transition easing function 
+					  }
+				});
+				/*jQuery("img.lazy").lazy({
 					effect: "fadeIn", 
 					effectTime: "normal"
-				});
+				});*/
 			});
 		</script>
 		<script>
