@@ -141,7 +141,7 @@ class PostController extends Controller {
 
 				//Calculate new image size
 				$imageWidth = $imageStyle['width']/100*$imageInfo->width;
-				$imageHeight = $imageStyle['width']/100*$imageInfo->height;
+				$imageHeight = ($imageWidth*$imageInfo->height)/$imageInfo->width;
 
 				//Modify content img to use lazy imageloader
 				$element->class = 'lazy';
@@ -150,6 +150,7 @@ class PostController extends Controller {
 				$element->href = asset('images/generate/'.$file);
 				$element->{"data-original"} = asset('images/generate/'.$file);
 				$element->src = null;
+				$element->style = null;
 
 				//Save image to imageList array
 				$imageList[] = $filename;
