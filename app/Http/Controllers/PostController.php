@@ -144,7 +144,7 @@ class PostController extends Controller {
 				$imageHeight = ($imageWidth*$imageInfo->height)/$imageInfo->width;
 
 				//Modify content img to use lazy imageloader
-				$element->class = 'lazy';
+				$element->class = $element->class.' lazy';
 				$element->width = $imageWidth;
 				$element->height = $imageHeight;
 				$element->href = asset('images/generate/'.$file);
