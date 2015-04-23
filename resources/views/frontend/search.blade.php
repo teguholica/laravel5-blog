@@ -7,7 +7,7 @@
 @stop
 
 @section('webTitle')
-Search| TeguhDEV
+{{ $searchQuery }} | {{ $webSettings->web_title }}
 @stop
 
 @section('head')
@@ -52,7 +52,7 @@ Search| TeguhDEV
 @stop
 
 @section('main')
-<i><h4>Hasil pencarian dengan kata kunci <b>'{{ Input::get('q') }}'</b> ada <b>{{ count($posts) }}</b> posting</h4></i>
+<i><h4>Hasil pencarian dengan kata kunci <b>'{{ $searchQuery }}'</b> ada <b>{{ count($posts) }}</b> posting</h4></i>
 @forelse ($posts as $post)
 <div class="content">
 	<h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>

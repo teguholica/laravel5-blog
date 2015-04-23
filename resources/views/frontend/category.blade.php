@@ -7,7 +7,7 @@
 @stop
 
 @section('webTitle')
-Category| TeguhDEV
+{{ $category->name }} | {{ $webSettings->web_title }}
 @stop
 
 @section('head')

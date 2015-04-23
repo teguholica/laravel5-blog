@@ -7,7 +7,7 @@
 @stop
 
 @section('webTitle')
-{{ $tagSlug }} | TeguhDEV
+{{ $tagSlug }} | {{ $webSettings->web_title }}
 @stop
 
 @section('head')

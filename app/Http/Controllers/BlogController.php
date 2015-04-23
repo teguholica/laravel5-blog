@@ -63,7 +63,8 @@ class BlogController extends FrontendController {
 	}
 	
 	public function category($categorySlug){
-		$data['posts'] = CategoryModel::where('slug', $categorySlug)->first()->post()->orderBy('created_at','DESC')->paginate(5);
+		$data['category'] = CategoryModel::where('slug', $categorySlug)->first();
+		$data['posts'] = $data['category']->post()->orderBy('created_at','DESC')->paginate(5);
 		foreach($data['posts'] as $post){
 			$page = new Page([
 			    'url' => route('blog.show', $post->slug),
@@ -110,6 +111,7 @@ class BlogController extends FrontendController {
 	}
 
 	public function search(){
+		$data['searchQuery'] = Input::get('q');
 		$data['posts'] = PostModel::where('title', 'like', '%'.Input::get('q').'%')
 			->orWhere('content', 'like', '%'.Input::get('q').'%')
 			->where('is_publish', 1)

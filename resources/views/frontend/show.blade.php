@@ -13,9 +13,9 @@
 
 @section('webTitle')
 @if(count($post) > 0)
-{{ $post->title }} | TeguhDev
+{{ $post->title }} | {{ $webSettings->web_title }}
 @else
-Posting tidak ditemukan  | TeguhDev
+Posting tidak ditemukan | {{ $webSettings->web_title }}
 @endif
 @stop
 
