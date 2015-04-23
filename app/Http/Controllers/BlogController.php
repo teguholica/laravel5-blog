@@ -85,8 +85,8 @@ class BlogController extends FrontendController {
 	}
 	
 	public function tag($tagSlug){
-		$data['tagSlug'] = $tagSlug;
-		$data['posts'] = TagModel::where('slug', $tagSlug)->first()->post()
+		$data['tag'] = TagModel::where('slug', $tagSlug)->first();
+		$data['posts'] = $data['tag']->post()
 			->where('is_publish', 1)
 			->orderBy('updated_at','DESC')
 			->paginate(5);

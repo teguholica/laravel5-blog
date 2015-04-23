@@ -7,7 +7,7 @@
 @stop
 
 @section('webTitle')
-{{ $tagSlug }} | {{ $webSettings->web_title }}
+{{ $tag->name }} | {{ $webSettings->web_title }}
 @stop
 
 @section('head')
