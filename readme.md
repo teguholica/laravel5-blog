@@ -7,6 +7,8 @@ Contoh blog dengan laravel 5
 - Migrasi database dengan command "php artisan migrate --seed"
 
 ## Admin
-Masuk ke http://[IP_ANDA]/admin\n
-user : admin@admin\n
+Masuk ke http://[IP_ANDA]/admin
+
+user : admin@admin
+
 password : admin
