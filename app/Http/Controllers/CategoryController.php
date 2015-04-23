@@ -85,7 +85,7 @@ class CategoryController extends Controller {
 	 */
 	public function update($id)
 	{
-		$rules = array('name' => 'required', 'is_public' => 'required');
+		$rules = array('name' => 'required');
 		$validation = Validator::make(Input::all(), $rules);
 		if ($validation -> passes()) {
 			CategoryModel::find($id) -> update(Input::all());
