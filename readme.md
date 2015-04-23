@@ -10,4 +10,5 @@ Contoh blog dengan laravel 5
 Masuk ke http://[IP_ANDA]/admin
 
 user : admin@admin
+
 password : admin
