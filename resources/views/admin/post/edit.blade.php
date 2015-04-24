@@ -22,7 +22,7 @@ Edit Post - {{ $post->title }}
 @stop
 
 @section('main')
-<form role="form" action="{{ route('admin.post.update', $post->id) }}" method="post" onsubmit="return postForm()">
+<form role="form" action="{{ route('admin.post.update', $post->id) }}" method="post" onsubmit="return postForm()" enctype="multipart/form-data">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="row">
 		<div class="col-md-9">
@@ -67,6 +67,10 @@ Edit Post - {{ $post->title }}
 			</div>
 			<div class="form-group" id="preview_content_wrapper" style="display:none;">
 				<label>Preview Content</label>
+				<input id="inputPreviewImage" type="file" name="preview_image" style="display:none;">
+				<div style="border:3px dashed #999999;padding:10px;text-align:center;margin-bottom:10px;cursor:pointer;" onclick="$('#inputPreviewImage').trigger('click');">
+					<img id="imgPreviewImage" @if(empty($post->preview_image)) src="{{ asset('res/images/icon_upload.png') }}" @else src="{{ asset('images/preview/'.$post->preview_image) }}" style="width:100%;" @endif />
+				</div>
 				<input type="hidden" name="preview_content">
 				<div id="post_preview_content" class="summernote">
 					{!! $post->preview_content !!}
@@ -160,6 +164,16 @@ Edit Post - {{ $post->title }}
 			minHeight : null,
 			maxHeight : null,
 			focus : true
+		});
+
+		$('#inputPreviewImage').change(function(){
+			myFile = $(this).prop('files');
+			var reader = new FileReader();
+	        reader.readAsDataURL(myFile[0]);
+	        reader.onload = function(e) {
+	        	$('#imgPreviewImage').css('width', '100%');
+	        	$('#imgPreviewImage').attr('src', e.target.result);
+	        };
 		});
 		
 		previewContent();

@@ -43,11 +43,77 @@ class PostController extends Controller {
 	 */
 	public function store()
 	{
-		if(Input::get('isSaveToPost') == 'true'){
-			return $this->saveToPost();
-		}else{
-			return $this->saveToServer();
+		$rules = array(
+			'title' => 'required', 
+			'slug' => 'required'
+		);
+		$validation = Validator::make(Input::all(), $rules);
+
+		if ($validation->passes()){
+			$input = Input::except('enable_preview_content', 'tags');
+			$input['user_id'] = Auth::user()->id;
+			
+			if(!Input::has('enable_preview_content')){
+				$input['preview_content'] = "";
+			}else{
+				//Save preview image if custom content enable
+				if(file_exists(public_path('images/preview/'.$post->preview_image))){
+					unlink(public_path('images/preview/'.$post->preview_image));
+				}
+				$previewImage = Input::file('preview_image');
+				if ($previewImage->isValid())
+				{
+					$previewImageFilename = 'preview_'.date('YmdHis').'.'.$previewImage->getClientOriginalExtension();
+				    $previewImage->move(public_path('images/preview'), $previewImageFilename);
+				    $input['preview_image'] = $previewImageFilename;
+				}
+			}
+			
+			$html = HtmlDomParser::str_get_html(Input::get('content'));
+			$imageList = [];
+			foreach($html->find('img') as $key => $element){
+				$imageEncode = preg_replace('#^data:image/[^;]+;base64,#', '', $element->src);
+				$imageDecode = base64_decode($imageEncode);
+				
+				$filename = date('YmdHis').$key;
+				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.$filename));
+				$imageSize = getimagesizefromstring($imageDecode);
+				
+				$element->class = 'lazy';
+				$element->{"data-src"} = asset('images/generate/'.$file);
+				$element->src = route('image_placeholder.load', array('h' => $imageSize[1], 'w' => $imageSize[0], 't' => 'Loading...'));
+
+				//Save image to imageList array
+				$imageList[] = $filename;
+			}
+			$html->save();
+			$input["lazy_content"] = $html;
+			
+			try {
+				$post = PostModel::create($input);
+			} catch (Exception $e) {
+				if($e->getCode() == 23000){
+					$failMsg = 'Post title is double. Please check again.';
+				}else{
+					$failMsg = $e->getMessage();
+				}
+				return redirect()->route('admin.post.create')
+					->withInput()
+					->with('fail_msg', $failMsg);
+			}
+
+			if(isset($post)){
+				$post->tag()->sync(Input::has('tags')?Input::get('tags'):array());
+			}
+			
+			return redirect()->route('admin.post.index')
+				-> with('success_msg', 'Succesfully created new post');
 		}
+
+		return redirect()->route('admin.post.create')
+			->withInput()
+			->withErrors($validation)
+			->with('fail_msg', 'Failed to create new post');
 		
 	}
 
@@ -100,15 +166,28 @@ class PostController extends Controller {
 		$validation = Validator::make(Input::all(), $rules);
 
 		if ($validation->passes()){
+			$post = PostModel::find($id);
+
 			$input = Input::except('enable_preview_content', 'tags');
 			$input['user_id'] = Auth::user()->id;
 			
 			if(!Input::has('enable_preview_content')){
 				$input['preview_content'] = "";
+			}else{
+				//Save preview image if custom content enable
+				if(file_exists(public_path('images/preview/'.$post->preview_image))){
+					unlink(public_path('images/preview/'.$post->preview_image));
+				}
+				$previewImage = Input::file('preview_image');
+				if ($previewImage->isValid())
+				{
+					$previewImageFilename = 'preview_'.date('YmdHis').'.'.$previewImage->getClientOriginalExtension();
+				    $previewImage->move(public_path('images/preview'), $previewImageFilename);
+				    $input['preview_image'] = $previewImageFilename;
+				}
 			}
 
 			//Destroy old image for this content
-			$post = PostModel::find($id);
 			$imageList = json_decode($post->images);
 			if(!empty($imageList)){
 				foreach($imageList as $image){
@@ -205,97 +284,6 @@ class PostController extends Controller {
 		PostModel::find($id)->delete();
 		return redirect()->route('admin.post.index')
 			->with('success_msg', 'Succesfully deleted post');
-	}
-
-	private function saveToServer(){
-		$rules = array(
-			'title' => 'required', 
-			'slug' => 'required'
-		);
-		$validation = Validator::make(Input::all(), $rules);
-
-		if ($validation->passes()){
-			$input = Input::except('enable_preview_content', 'tags', 'isSaveToPost');
-			$input['user_id'] = Auth::user()->id;
-			
-			if(!Input::has('enable_preview_content')){
-				$input['preview_content'] = "";
-			}
-			
-			$html = HtmlDomParser::str_get_html(Input::get('content'));
-			$imageList = [];
-			foreach($html->find('img') as $key => $element){
-				$imageEncode = preg_replace('#^data:image/[^;]+;base64,#', '', $element->src);
-				$imageDecode = base64_decode($imageEncode);
-				
-				$filename = date('YmdHis').$key;
-				$file = Image::fromBase64($imageEncode, public_path('images/generate/'.$filename));
-				$imageSize = getimagesizefromstring($imageDecode);
-				
-				$element->class = 'lazy';
-				$element->{"data-src"} = asset('images/generate/'.$file);
-				$element->src = route('image_placeholder.load', array('h' => $imageSize[1], 'w' => $imageSize[0], 't' => 'Loading...'));
-
-				//Save image to imageList array
-				$imageList[] = $filename;
-			}
-			$html->save();
-			$input["lazy_content"] = $html;
-			
-			try {
-				$post = PostModel::create($input);
-			} catch (Exception $e) {
-				if($e->getCode() == 23000){
-					$failMsg = 'Post title is double. Please check again.';
-				}else{
-					$failMsg = $e->getMessage();
-				}
-				return redirect()->route('admin.post.create')
-					->withInput()
-					->with('fail_msg', $failMsg);
-			}
-
-			if(isset($post)){
-				$post->tag()->sync(Input::has('tags')?Input::get('tags'):array());
-			}
-			
-			return redirect()->route('admin.post.index')
-				-> with('success_msg', 'Succesfully created new post');
-		}
-
-		return redirect()->route('admin.post.create')
-			->withInput()
-			->withErrors($validation)
-			->with('fail_msg', 'Failed to create new post');
-	}
-
-	private function saveToPost(){
-		$rules = array(
-			'title' => 'required', 
-			'slug' => 'required'
-		);
-		$validation = Validator::make(Input::all(), $rules);
-
-		if ($validation->passes()){
-			$input = Input::except('enable_preview_content', 'tags');
-			$input['user_id'] = Auth::user()->id;
-			
-			if(!Input::has('enable_preview_content')){
-				$input['preview_content'] = "";
-			}
-
-			header ("Content-Type: application/octet-stream");
-			header ("Content-disposition: attachment; filename=".Input::get('slug').".post");
-			return json_encode([
-				"title" => Input::get('title'),
-				"content" => Input::get('content')
-			]);
-		}else{
-			return redirect()->route('admin.post.create')
-				->withInput()
-				->withErrors($validation)
-				->with('fail_msg', 'Failed to generate .post file');
-		}
 	}
 
 }

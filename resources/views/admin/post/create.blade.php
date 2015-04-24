@@ -22,9 +22,8 @@ Create New Post
 @stop
 
 @section('main')
-<form id="postForm" role="form" action="{{ route('admin.post.store') }}" method="post" onsubmit="return postForm()">
+<form id="postForm" role="form" action="{{ route('admin.post.store') }}" method="post" onsubmit="return postForm()" enctype="multipart/form-data">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<input type="hidden" name="isSaveToPost" value="false">
 	<div class="row">
 		<div class="col-md-9">
 			@include('admin.alert')
@@ -68,6 +67,10 @@ Create New Post
 			</div>
 			<div class="form-group" id="preview_content_wrapper" style="display:none;">
 				<label>Preview Content</label>
+				<input id="inputPreviewImage" type="file" name="preview_image" style="display:none;">
+				<div style="border:3px dashed #999999;padding:10px;text-align:center;margin-bottom:10px;cursor:pointer;" onclick="$('#inputPreviewImage').trigger('click');">
+					<img id="imgPreviewImage" @if(empty($post->preview_image)) src="{{ asset('res/images/icon_upload.png') }}" @else src="{{ asset('images/preview/'.$post->preview_image) }}" style="width:100%;" @endif />
+				</div>
 				<input type="hidden" name="preview_content">
 				<div id="post_preview_content" class="summernote">{{ Input::old('preview_content') }}</div>
 			</div>
@@ -125,23 +128,9 @@ Create New Post
 			</div>
 			<hr>
 			<div class="form-group">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="dropdown">
-							<button class="btn btn-primary dropdown-toggle" type="button" style="width: 100%;" data-toggle="dropdown" aria-expanded="true">
-								Save
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="savePost()">Save</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="exportPost()">Save to .post</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<button type="button" class="btn btn-primary" style="width: 100%;" onclick="importPost()">Load .post</button>
-					</div>
-				</div>
+				<button type="submit" class="btn btn-primary" style="width: 100%;">
+					Save
+				</button>
 			</div>
 		</div>
 	</div>
@@ -180,28 +169,13 @@ Create New Post
 		}
 	}
 
-	savePost = function(){
-		$('[name=isSaveToPost]').val("false");
-		$('#postForm').submit();
-	}
-
-	exportPost = function(){
-		$('[name=isSaveToPost]').val("true");
-		$('#postForm').submit();
-	}
-
-	importPost = function(){
-		$('#loadPostForm input').trigger('click');
-	}
-
-	$('#loadPostForm input').change(function(){
+	$('#inputPreviewImage').change(function(){
 		myFile = $(this).prop('files');
 		var reader = new FileReader();
-        reader.readAsText(myFile[0]);
+        reader.readAsDataURL(myFile[0]);
         reader.onload = function(e) {
-        	importData = jQuery.parseJSON(e.target.result);
-        	$('#postForm [name=title]').val(importData.title);
-        	$('#post_content').code(importData.content);
+        	$('#imgPreviewImage').css('width', '100%');
+        	$('#imgPreviewImage').attr('src', e.target.result);
         };
 	});
 </script>

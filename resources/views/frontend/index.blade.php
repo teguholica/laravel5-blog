@@ -75,6 +75,7 @@
 		@if(empty($post->preview_content))
 		{!! $post->lazy_content !!}
 		@else
+		<img src="{{ asset('images/preview/'.$post->preview_image) }}" style="width:100%">
 		{!! $post->preview_content !!}...<a href="{{ route('blog.show', $post->slug) }}">Selengkapnya</a>
 		@endif
 	</p>
