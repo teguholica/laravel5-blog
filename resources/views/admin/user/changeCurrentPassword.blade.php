@@ -6,6 +6,7 @@ Change Password
 
 @section('main')
 <form role="form" action="{{ route('admin.user.changeCurrentPassword.action') }}" method="post">
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<div class="row">
 		<div class="col-md-9">
 			@if(Session::get('message_success') != '')

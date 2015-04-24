@@ -4,6 +4,7 @@ use App\Models\UserModel;
 use Validator;
 use Input;
 use Hash;
+use Auth;
 
 class AdminUserController extends Controller {
 
