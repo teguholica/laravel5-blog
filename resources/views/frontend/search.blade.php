@@ -77,10 +77,10 @@
 		
 	</h5>
 	<p>
-		@if($post->preview_content == "")
+		@if(empty($post->preview_content))
 		{!! $post->lazy_content !!}
 		@else
-		{{ $post->preview_content }}...<a href="{{ route('blog.show', $post->slug) }}">Selengkapnya</a>
+		{!! $post->preview_content !!}...<a href="{{ route('blog.show', $post->slug) }}">Selengkapnya</a>
 		@endif
 	</p>
 </div>
