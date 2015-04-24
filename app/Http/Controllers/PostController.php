@@ -57,9 +57,6 @@ class PostController extends Controller {
 				$input['preview_content'] = "";
 			}else{
 				//Save preview image if custom content enable
-				if(file_exists(public_path('images/preview/'.$post->preview_image))){
-					unlink(public_path('images/preview/'.$post->preview_image));
-				}
 				$previewImage = Input::file('preview_image');
 				if ($previewImage->isValid())
 				{
@@ -175,7 +172,7 @@ class PostController extends Controller {
 				$input['preview_content'] = "";
 			}else{
 				//Save preview image if custom content enable
-				if(file_exists(public_path('images/preview/'.$post->preview_image))){
+				if(!empty($post->preview_image) && file_exists(public_path('images/preview/'.$post->preview_image))){
 					unlink(public_path('images/preview/'.$post->preview_image));
 				}
 				$previewImage = Input::file('preview_image');
