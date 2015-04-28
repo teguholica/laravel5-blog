@@ -13,6 +13,8 @@ class Image {
 		$result->ext = '';
 		if($imageInfo['mime'] == 'image/png'){
 			$result->ext = '.png';
+		}else if($imageInfo['mime'] == 'image/gif'){
+			$result->ext = '.gif';
 		}
 		
 		return $result;

@@ -122,6 +122,7 @@
 			}
 
 		</style>
+		<script>document.cookie='resolution='+Math.max(screen.width,screen.height)+'; path=/';</script>
 		@yield('head')
 	</head>
 	<body>
