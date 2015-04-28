@@ -52,24 +52,30 @@
 <div class="content">
 	<h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>
 	<h5>
-		<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
-		<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
-		@if($post->updated_at == $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
-		<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
-
+		<div class="pull-left">
+			<div>
+				<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
+				<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
+			</div>
+			<div style="margin-top:5px">
+				<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
+				@if($post->updated_at != $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
+			</div>
+		</div>
+		
 		<div class="pull-right">			
 			<div class="btn-group">
 			  <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
 			    <span class="glyphicon glyphicon-share"></span> Berbagi <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="javascript:void(0)" onclick="window.open('{{ $post->share->gplus }}','Share Google+','width=600,height=400')">Google+</a></li>
-			    <li><a href="javascript:void(0)" onclick="window.open('{{ $post->share->facebook }}','Share Facebook','width=600,height=400')">Facebook</a></li>
-			    <li><a href="javascript:void(0)" onclick="window.open('{{ $post->share->twitter }}','Share Twitter','width=600,height=400')">Twitter</a></li>
+			    <li><a href="{{ $post->share->gplus }}">Google+</a></li>
+			    <li><a href="{{ $post->share->facebook }}">Facebook</a></li>
+			    <li><a href="{{ $post->share->twitter }}">Twitter</a></li>
 			  </ul>
 			</div>
 		</div>
-		
+		<div class="clearfix"></div>
 	</h5>
 	<p>
 		@if(empty($post->preview_content))

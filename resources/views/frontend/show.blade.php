@@ -63,11 +63,17 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 <div class="content">
 	<h3>{{ $post->title }}</h3>
 	<h5>
-		<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->fullname }}</a>&nbsp;&nbsp; 
-		<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
-		@if($post->updated_at == $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
-		<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
-	
+		<div class="pull-left">
+			<div>
+				<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
+				<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
+			</div>
+			<div style="margin-top:5px">
+				<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
+				@if($post->updated_at != $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
+			</div>
+		</div>
+		
 		<div class="pull-right">			
 			<div class="btn-group">
 			  <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -80,7 +86,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 			  </ul>
 			</div>
 		</div>
-	
+		<div class="clearfix"></div>
 	</h5>
 	<p>
 		{!! $post->content !!}
