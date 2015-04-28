@@ -216,8 +216,13 @@ class PostController extends Controller {
 				}
 
 				//Calculate new image size
-				$imageWidth = $imageStyle['width']/100*$imageInfo->width;
-				$imageHeight = ($imageWidth*$imageInfo->height)/$imageInfo->width;
+				if(strpos($imageStyle['width'], '%')){
+					$imageWidth = $imageStyle['width']/100*$imageInfo->width;
+					$imageHeight = ($imageWidth*$imageInfo->height)/$imageInfo->width;
+				}else{
+					$imageWidth = $imageInfo->width;
+					$imageHeight = $imageInfo->height;
+				}
 
 				//Modify content img to use lazy imageloader
 				$element->class = $element->class.' lazy';
