@@ -59,18 +59,19 @@ Route::get('sitemap', function(){
     $sitemap->setCache('laravel.sitemap', 3600);
     if (!$sitemap->isCached()){
         $sitemap->add(URL::to('/'), date('Y-m-dTH:i:s+00:00'), '0.5', 'weekly');
-	    $posts = PostModel::orderBy('updated_at', 'desc')->get();
+	    $posts = App\Models\PostModel::orderBy('updated_at', 'desc')->get();
 	    foreach ($posts as $post){
-	    	$sitemap->add(route('blog.show.view', $post->slug), date('Y-m-dTH:i:s+00:00', strtotime($post->updated_at)), '0.5', 'weekly');
+	    	$sitemap->add(route('blog.show', $post->slug), date('Y-m-dTH:i:s+00:00', strtotime($post->updated_at)), '0.5', 'weekly');
 	    }
-		foreach(Conner\Tagging\Tag::where('count', '>', 0)->get() as $tag){
-			$sitemap->add(route('blog.tag.view', $tag->slug), date('Y-m-dTH:i:s+00:00'), '0.5', 'weekly');
+	    $tags = App\Models\TagModel::all();
+		foreach($tags as $tag){
+			$sitemap->add(route('blog.tag', $tag->slug), date('Y-m-dTH:i:s+00:00'), '0.5', 'weekly');
 		}
-		foreach(PostCategoryModel::all() as $category){
-			$sitemap->add(route('blog.category.view', $category->slug), date('Y-m-dTH:i:s+00:00'), '0.5', 'weekly');
+		$categories = App\Models\CategoryModel::all();
+		foreach($categories as $category){
+			$sitemap->add(route('blog.category', $category->slug), date('Y-m-dTH:i:s+00:00'), '0.5', 'weekly');
 		}
     }
     return $sitemap->render('xml');
 });
-Route::get('gallery', array('middleware' => 'auth', 'as' => 'gallery', 'uses' => 'JeroenG\LaravelPhotoGallery\Controllers\GalleryController@index'));
 Route::get('image_placeholder', array('as' => 'image_placeholder.load', 'uses' => 'ImagePlaceholderController@loadView'));

@@ -15,6 +15,7 @@ class ChangePostsTable extends Migration {
 		Schema::table('posts', function($table)
 		{
 		    $table->json('images');
+		    $table->json('preview_image');
 		});
 	}
 
@@ -28,6 +29,7 @@ class ChangePostsTable extends Migration {
 		Schema::table('posts', function($table)
 		{
 		    $table->dropColumn('images');
+		    $table->dropColumn('preview_image');
 		});
 	}
 

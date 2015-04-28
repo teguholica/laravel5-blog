@@ -6,7 +6,7 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-		"roumen/sitemap": "2.4.*",
+		"roumen/sitemap": "~2.5",
 		"sunra/php-simple-html-dom-parser": "v1.5.0",
 		"social-links/social-links": "v1.4.2"
 	},
