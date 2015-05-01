@@ -7,7 +7,7 @@
 @stop
 
 @section('webTitle')
-{{ $category->name }} | {{ $webSettings->web_title }}
+{{ isset($category->name)?$category->name:'Kategori tidak ditemukan' }} | {{ $webSettings->web_title }}
 @stop
 
 @section('head')

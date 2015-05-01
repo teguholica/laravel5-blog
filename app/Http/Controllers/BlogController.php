@@ -64,7 +64,11 @@ class BlogController extends FrontendController {
 	
 	public function category($categorySlug){
 		$data['category'] = CategoryModel::where('slug', $categorySlug)->first();
+		if(is_null($data['category'])){
+			abort(404);
+		}
 		$data['posts'] = $data['category']->post()->orderBy('created_at','DESC')->paginate(5);
+		dd($data['posts']);
 		foreach($data['posts'] as $post){
 			$page = new Page([
 			    'url' => route('blog.show', $post->slug),
@@ -86,6 +90,9 @@ class BlogController extends FrontendController {
 	
 	public function tag($tagSlug){
 		$data['tag'] = TagModel::where('slug', $tagSlug)->first();
+		if(is_null($data['tag'])){
+			abort(404);
+		}
 		$data['posts'] = $data['tag']->post()
 			->where('is_publish', 1)
 			->orderBy('updated_at','DESC')
