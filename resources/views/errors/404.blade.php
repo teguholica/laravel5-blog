@@ -23,7 +23,7 @@ Halaman tidak ditemukan
                     Halaman tidak ditemukan
                 </div>
                 <div class="error-actions">
-                    <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Beranda </a>
+                    <a href="{{ route('blog.index') }}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Beranda </a>
                 </div>
             </div>
         </div>
