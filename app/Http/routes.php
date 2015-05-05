@@ -54,7 +54,11 @@ Route::get('admin/gcm_device', array('middleware' => 'auth', 'as' => 'admin.gcm_
 Route::get('admin/gcm_device/destroy/{gcmDeviceId}', array('middleware' => 'auth', 'as' => 'admin.gcm_device.destroy', 'uses' => 'GCMDeviceController@destroy'));
 Route::get('admin/web_setting', array('middleware' => 'auth', 'as' => 'admin.web_setting.index', 'uses' => 'WebSettingController@index'));
 Route::post('admin/web_setting', array('middleware' => 'auth', 'as' => 'admin.web_setting.update', 'uses' => 'WebSettingController@update'));
-Route::get('sitemap', function(){
+Route::get('sitemap.xml', function(){
+	header('Content-Type: application/octet-stream');
+	header("Content-Transfer-Encoding: Binary"); 
+	header("Content-disposition: attachment; filename=\"sitemap.xml\""); 
+
     $sitemap = App::make("sitemap");
     $sitemap->setCache('laravel.sitemap', 3600);
     if (!$sitemap->isCached()){
