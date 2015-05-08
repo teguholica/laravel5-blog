@@ -208,6 +208,7 @@
 		<script type="text/javascript" src="{{ asset('res/tagclouds/js/tinysort.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/jquery_lazyload/jquery.lazyload.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('res/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('res/holderjs/holder.min.js') }}"></script>
 		<script>
 			$(window).load(function(){
 				$("#main-content").show();

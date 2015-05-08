@@ -119,7 +119,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 		@forelse($comments as $comment)
 		<div class="media">
 		    <a class="media-left" href="#">
-		    	<img src="holder.js/64x64/dark/text:{{ strtoupper(substr($comment->name, 0, 1)) }}">
+		    	<img src="holder.js/64x64?random=yes&text={{ strtoupper(substr($comment->name, 0, 1)) }}&size=20">
 		    </a>
 		    <div class="media-body">
 		        <h4 class="media-heading">{{ $comment->name }}</h4>
