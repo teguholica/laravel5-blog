@@ -12,12 +12,12 @@
 
 @section('head')
 <style>
-	.content h3 {
+	.content h2 {
 		border-bottom: 1px solid #EEEEEE;
 		padding-bottom: 20px;
 	}
 
-	.content h3 a {
+	.content h2 a {
 		font-family: 'Open Sans', sans-serif;
 		font-size: 30px;
 		margin: 0px;
@@ -33,7 +33,7 @@
 		transition: all 0.2s linear;
 	}
 
-	.content h3 a:hover {
+	.content h2 a:hover {
 		color: #FF9C00;
 	}
 
@@ -54,7 +54,7 @@
 @section('main')
 @forelse ($posts as $post)
 <div class="content">
-	<h3><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h3>
+	<h2><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h2>
 	<h5>
 		<div class="pull-left">
 			<div>

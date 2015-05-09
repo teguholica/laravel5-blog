@@ -76,6 +76,12 @@
 				color: #FF9C00 !important;
 			}
 
+			.navbar-brand h1 {
+				font-size: 18px;
+				margin: 0px;
+				padding: 0px;
+			}
+
 			.navbar-brand:hover {
 				color: #FFFFFF !important;
 			}
@@ -127,7 +133,7 @@
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -135,7 +141,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="{{ route('blog.index') }}">{ #teguholica }</a>
+					<a class="navbar-brand" href="{{ route('blog.index') }}"><h1>Blog Teguh Arifianto</h1></a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<form action="{{ route('blog.search') }}" method="GET" class="navbar-form navbar-right">

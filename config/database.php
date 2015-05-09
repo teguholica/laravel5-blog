@@ -84,6 +84,18 @@ return [
 			'prefix'   => '',
 		],
 
+		'tracker' => [
+			'driver'    => 'mysql',
+			'host'      => env('DB_TRACKER_HOST', 'localhost'),
+			'database'  => env('DB_TRACKER_DATABASE', 'forge'),
+			'username'  => env('DB_TRACKER_USERNAME', 'forge'),
+			'password'  => env('DB_TRACKER_PASSWORD', ''),
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+			'strict'    => false,
+		],
+
 	],
 
 	/*

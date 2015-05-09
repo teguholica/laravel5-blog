@@ -9,6 +9,7 @@ Contoh blog dengan laravel 5
 - Ganti database dengan database yang anda gunakan
 - Generate key dengan perintah "php artisan key:generate"
 - Migrasi database dengan command "php artisan migrate --seed"
+- [NEW] buat database tracker dan lakukan perintah berikut "php artisan migrate --path=database/migrations/tracker --database=tracker". Pastikan anda sudah menginstall "sudo apt-get purge php5-geoip"
 
 ## Admin
 Masuk ke http://[IP_ANDA]/admin

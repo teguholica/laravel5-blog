@@ -21,12 +21,12 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 
 @section('head')
 <style>
-	.content h3 {
+	.content h2 {
 		border-bottom: 1px solid #EEEEEE;
 		padding-bottom: 20px;
 	}
 
-	.content h3 {
+	.content h2 {
 		font-family: 'Open Sans', sans-serif;
 		font-size: 30px;
 		text-decoration: none;
@@ -40,7 +40,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 		transition: all 0.2s linear;
 	}
 
-	.content h3 a:hover {
+	.content h2 a:hover {
 		color: #FF9C00;
 	}
 
@@ -61,7 +61,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 @section('main')
 @if(count($post) > 0)
 <div class="content">
-	<h3>{{ $post->title }}</h3>
+	<h2>{{ $post->title }}</h2>
 	<h5>
 		<div class="pull-left">
 			<div>
