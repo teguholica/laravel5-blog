@@ -93,7 +93,7 @@
 @endforelse
 
 <div style="text-align: center">
-	{{ $posts->render() }}
+	{!! $posts->render() !!}
 </div>
 
 @stop
