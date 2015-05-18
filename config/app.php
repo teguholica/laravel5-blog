@@ -146,7 +146,6 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Roumen\Sitemap\SitemapServiceProvider',
-		'PragmaRX\Tracker\Vendor\Laravel\ServiceProvider',
 		
 	],
 
@@ -195,8 +194,6 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
-		'Tracker' => 'PragmaRX\Tracker\Vendor\Laravel\Facade',
 
 	],
 

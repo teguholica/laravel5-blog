@@ -78,4 +78,3 @@ Route::get('sitemap.xml', function(){
     }
     return $sitemap->render('xml');
 });
-Route::get('image_placeholder', array('as' => 'image_placeholder.load', 'uses' => 'ImagePlaceholderController@loadView'));
