@@ -68,7 +68,6 @@ class BlogController extends FrontendController {
 			abort(404);
 		}
 		$data['posts'] = $data['category']->post()->orderBy('created_at','DESC')->paginate(5);
-		dd($data['posts']);
 		foreach($data['posts'] as $post){
 			$page = new Page([
 			    'url' => route('blog.show', $post->slug),
