@@ -19,6 +19,7 @@
 				<td>{{ $post->id }}</td>
 				<td>{{ $post->title }}</td>
 				<td>{{ $post->category->name }}</td>
+				<td>{{ $post->comment->count() }} Comments</td>
 				<td style="text-align: right">
 					<a href="{{ route('admin.post.edit', $post->id) }}" class="btn btn-primary btn-xs">Edit</a>&nbsp;
 					<a href="{{ route('admin.post.destroy', $post->id) }}" onclick="return confirm('Delete?')" class="btn btn-danger btn-xs">Delete</a>
