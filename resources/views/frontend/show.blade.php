@@ -69,10 +69,6 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 				<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
 				<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
 			</div>
-			<div style="margin-top:5px">
-				<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
-				@if($post->updated_at != $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
-			</div>
 		</div>
 		
 		<div class="pull-right">			
