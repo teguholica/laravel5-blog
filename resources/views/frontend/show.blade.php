@@ -120,7 +120,6 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 		    </a>
 		    <div class="media-body">
 		        <h4 class="media-heading">{{ $comment->name }}</h4>
-		        <h5 class="media-heading">Email : {{ $comment->email }}</h5>
 		        <h5 class="media-heading">Website : {{ $comment->website}}</h5>
 		        <p class="comment">{{{ $comment->content }}}</p>
 		    </div>
