@@ -13,12 +13,16 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-Route::get('/', array('as' => 'blog.index', 'uses' => 'BlogController@index'));
-Route::get('show/{slug}.html', array('as' => 'blog.show', 'uses' => 'BlogController@show'));
-Route::get('tag/{tagSlug}.html', array('as' => 'blog.tag', 'uses' => 'BlogController@tag'));
-Route::get('category/{categorySlug}.html', array('as' => 'blog.category', 'uses' => 'BlogController@category'));
-Route::get('search', array('as' => 'blog.search', 'uses' => 'BlogController@search'));
-Route::post('comment/{postId}', array('as' => 'blog.store_comment', 'uses' => 'BlogController@storeComment'));
+
+Route::group(['namespace' => 'Frontend'], function(){
+	Route::get('/', ['as' => 'blog.index', 'uses' => 'HomeController@index']);
+	Route::get('show/{slug}.html', ['as' => 'blog.show', 'uses' => 'PostController@index']);
+	Route::post('comment/{postId}', ['as' => 'blog.store_comment', 'uses' => 'PostController@storeComment']);
+	Route::get('tag/{tagSlug}.html', ['as' => 'blog.tag', 'uses' => 'TagController@index']);
+	Route::get('category/{categorySlug}.html', ['as' => 'blog.category', 'uses' => 'CategoryController@index']);
+	Route::get('search', ['as' => 'blog.search', 'uses' => 'SearchController@index']);
+});
+
 Route::post('gcm_service/register', array('as' => 'gcm_service.register', 'uses' => 'GCMServiceController@register'));
 Route::post('gcm_service/unregister', array('as' => 'gcm_service.unregister', 'uses' => 'GCMServiceController@unregister'));
 Route::get('gcm_service/send_msg', array('as' => 'gcm_service.send_msg', 'uses' => 'GCMServiceController@sendMsg'));

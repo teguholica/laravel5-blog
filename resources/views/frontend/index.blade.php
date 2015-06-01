@@ -8,11 +8,6 @@
 
 @section('head')
 <style>
-	.content h2 {
-		border-bottom: 1px solid #EEEEEE;
-		padding-bottom: 20px;
-	}
-
 	.content h2 a {
 		font-family: 'Open Sans', sans-serif;
 		font-size: 30px;
@@ -37,6 +32,7 @@
 		font-family: 'Open Sans', sans-serif;
 		font-weight: 300;
 		color: #757575;
+		margin: 0;
 	}
 
 	pre {
@@ -52,40 +48,13 @@
 <div class="content">
 	<h2><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h2>
 	<h5>
-		<div class="pull-left">
-			<div>
-				<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
-				<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
-			</div>
-			<div style="margin-top:5px">
-				<span class="glyphicon glyphicon-time"></span> Terbit {{ $date->dateToIndo(strtotime($post->created_at)) }}&nbsp;&nbsp;
-				@if($post->updated_at != $post->created_at)<span class="glyphicon glyphicon-time"></span> Revisi {{ $date->dateToIndo(strtotime($post->updated_at)) }}&nbsp;&nbsp;@endif
-			</div>
+		<div>
+			<span class="glyphicon glyphicon-user"></span> Oleh <a href="index.php">{{ $post->user->display_name }}</a>&nbsp;&nbsp; 
+			<span class="glyphicon glyphicon-eye-open"></span> Dilihat {{ $post->view }}x
 		</div>
-		
-		<div class="pull-right">			
-			<div class="btn-group">
-			  <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
-			    <span class="glyphicon glyphicon-share"></span> Berbagi <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="{{ $post->share->gplus }}">Google+</a></li>
-			    <li><a href="{{ $post->share->facebook }}">Facebook</a></li>
-			    <li><a href="{{ $post->share->twitter }}">Twitter</a></li>
-			  </ul>
-			</div>
-		</div>
-		<div class="clearfix"></div>
 	</h5>
-	<p>
-		@if(empty($post->preview_content))
-		{!! $post->lazy_content !!}
-		@else
-		<img src="{{ asset('images/preview/'.$post->preview_image) }}" style="max-width:100%">
-		{!! $post->preview_content !!}...<a href="{{ route('blog.show', $post->slug) }}">Selengkapnya</a>
-		@endif
-	</p>
 </div>
+<hr>
 @empty
 <div class="content" style="margin-top: 10px;text-align: center;">
 	<div class="alert alert-warning" role="alert" >Belum ada posting</div>
