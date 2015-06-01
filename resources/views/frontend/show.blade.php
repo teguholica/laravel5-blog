@@ -20,6 +20,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 @stop
 
 @section('head')
+<link href="{{ asset('res/emoticon/stylesheets/jquery.cssemoticons.css') }}" media="screen" rel="stylesheet" type="text/css" />
 <style>
 	.content h2 {
 		border-bottom: 1px solid #EEEEEE;
@@ -125,7 +126,7 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 		        <h4 class="media-heading">{{ $comment->name }}</h4>
 		        <h5 class="media-heading">Email : {{ $comment->email }}</h5>
 		        <h5 class="media-heading">Website : {{ $comment->website}}</h5>
-		        <p>{{{ $comment->content }}}</p>
+		        <p class="comment">{{{ $comment->content }}}</p>
 		    </div>
 		</div>
 		@empty
@@ -142,12 +143,17 @@ Posting tidak ditemukan | {{ $webSettings->web_title }}
 @stop
 
 @section('foot')
+<script src="{{ asset('res/emoticon/javascripts/jquery.cssemoticons.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
-	Holder.addTheme("dark", {
-	  background: "#39DBAC",
-	  foreground: "#FFFFFF",
-	  size: 40,
-	  fontweight: "normal"
+	$(document).ready(function(){
+		$('.comment').emoticonize();
+
+		Holder.addTheme("dark", {
+		  background: "#39DBAC",
+		  foreground: "#FFFFFF",
+		  size: 40,
+		  fontweight: "normal"
+		});
 	});
 </script>
 @stop
